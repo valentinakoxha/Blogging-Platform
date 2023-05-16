@@ -1,26 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-<div class=" container">
+<div class="container">
     <div class="col-12">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <h4 class="align-self-center mb-0">blogs</h4>
-                    <span class="float-right ">
-                        <a href="{{ route('blog.create') }}" class="btn btn-outline-primary"><i
-                                data-feather='plus-circle' class="me-1"></i>
-                            Create blog</a>
+                    <span class="float-right">
+                        <a href="{{ route('blog.create') }}" class="btn btn-outline-success">
+                        
+                        <svg width="18" height="18" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#11c304" stroke="#11c304">
+
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+                            <g id="SVGRepo_iconCarrier"> <title>plus [#1512]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-379.000000, -240.000000)" fill="#38770d"> <g id="icons" transform="translate(56.000000, 160.000000)"> <polygon id="plus-[#1512]" points="344 89 344 91 334.55 91 334.55 100 332.45 100 332.45 91 323 91 323 89 332.45 89 332.45 80 334.55 80 334.55 89"> </polygon> </g> </g> </g> </g>
+
+                        </svg>
+                        Create blog
+                        </a>
                     </span>
                 </div>
                 <p class="card-title-desc mt-2">List of blogs in the application</p>
-                <div class=" d-none d-sm-flex">
+                <div class="">
                     <table class="table table table-striped">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Ttile</th>
                                 <th>Description</th>
+                                <th>Created At</th>
                                 <th class="text-center">Actions</th>
                             </tr>
                         </thead>
@@ -30,6 +41,7 @@
                                 <td>{{ $blog->id }}</td>
                                 <td>{{ $blog->title }}</td>
                                 <td>{!! strip_tags(Str::limit($blog->description, 50)) !!}</td>
+                                <td>{{ $blog->formatDate() }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a class="me-1 text-primary" href="{{ route('blog.edit', $blog->id) }}">
@@ -64,7 +76,7 @@
                                         <form method="POST" action="{{ route('blog.destroy', $blog) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <div class="" onclick="deleteRow({{ $blog->id }})">
+                                            <div class="" onclick="deleteBlogById({{ $blog->id }})">
                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
 
@@ -97,43 +109,6 @@
                     </table>
                 </div>
             </div>
-
-            <div class="d-block d-sm-none mt-1 p-1">
-                <div class="cell-upload-container pb-3">
-                    @foreach($blogs as $blog)
-                    <div class="cell-upload">
-                        <div class="d-flex">
-                            <label for="title" class="col-4 ps-2 fw-bold col-form-label font-rubik">#</label>
-                            <p class="col-8 col-form-label">{{ $blog->id }}</p>
-                        </div>
-                        <div class="d-flex">
-                            <label for="creator" class="col-4 ps-2 fw-bold col-form-label font-rubik">Title</label>
-                            <p class="col-8 col-form-label">{{ $blog->title }}</p>
-                        </div>
-                        <div class="d-flex">
-                            <label for="creator"
-                                class="col-4 ps-2 fw-bold col-form-label font-rubik">Description</label>
-                            <p class="col-8 col-form-label">{!! strip_tags(Str::limit($blog->description, 50)) !!}</p>
-                        </div>
-
-                        <div class="d-flex align-items-center">
-                            <label for="creator" class="col-4 ps-2 fw-bold col-form-label font-rubik">Actions</label>
-                            <div class="d-flex align-items-center">
-                                <a class="me-1 text-primary" href="{{ route('blog.edit', $blog->id) }}"> <i
-                                        data-feather='edit'></i> </a>
-                                <form method="POST" action="{{ route('blog.destroy', $blog) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <a type="submit" class="text-danger delete" data-toggle="tooltip" title='Delete'>
-                                        <i data-feather='trash-2'></i>
-                                    </a>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -141,7 +116,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script type="text/javascript">
-    function deleteRow(rowId) {
+    function deleteBlogById(rowId) {
         // Display the SweetAlert confirmation
         Swal.fire({
             title: 'Are you sure?',

@@ -7,11 +7,22 @@ use App\Models\Blog;
 
 class BlogController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $blogs = Blog::orderBy('created_at', 'desc')->get();
-        return view('blogs.index', ['blogs' => $blogs]);
+        //add pagination 
+        $blogs = Blog::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('blogs.index', [
+            'blogs' => $blogs
+        ]);
     }
+
     public function create()
     {
         return view('blogs.create');
@@ -19,8 +30,15 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+        //validation
+        request()->validate([
+            'title'=>'required',
+            'description' => 'required',
+            'blogFile' => 'required',
+        ]);
+
         $blog = Blog::create([
-            'title' => $request->input('title'),
+            'title' => $request->title,
             'description' => $request->input('description'),
             'user_id' => auth()->user()->id,
         ]);
@@ -35,20 +53,23 @@ class BlogController extends Controller
         return redirect('blog');
     }
 
-    public function show($id)
+    public function show(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
-        return view('blogs.show', compact('blog'));
+        return view('blogs.show', ['blog'=>$blog]);
     }
 
-    public function edit($id)
+    public function edit(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
-        return view('blogs.edit', compact('blog'));
+        return view('blogs.edit', ['blog'=>$blog]);
     }
 
     public function update(Blog $blog, Request $request)
     {
+        request()->validate([
+            'title'=>'required',
+            'description' => 'required',
+        ]);
+
         $blog->update([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -73,4 +94,5 @@ class BlogController extends Controller
 
     	return redirect('blog');
     }
+
 }

@@ -67,7 +67,7 @@
                                 <div class="col-md-10 col-md-offset-4 mt-3">
                                     <div class="d-flex justify-content-end">
                                        
-                                        <button type="submit" class="btn btn-outline-primary"><i data-feather='save'></i>
+                                        <button type="submit" class="btn btn-outline-success"><i data-feather='save'></i>
                                             Update</button>
                                     </div>
                                 </div>

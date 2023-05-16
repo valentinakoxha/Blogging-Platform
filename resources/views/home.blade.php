@@ -1,23 +1,75 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+<div class=" container">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <h4 class="align-self-center mb-0">blogs</h4>
+                    <span class="float-right ">
+                        <a href="{{ route('blog.create') }}" class="btn btn-outline-primary"><i
+                                data-feather='plus-circle' class="me-1"></i>
+                            Create blog</a>
+                    </span>
+                </div>
+                <p class="card-title-desc mt-2">List of blogs in the application</p>
+                <div class="container">
+                    <div class="row">
+                        @foreach($blogs as $blog)
+                        <div class="col-sm-4 mb-4">
+                            <div class="card">
+                                <img class="card-img" src="{{ $blog->getImage() }}" alt="Bologna">
+                                <div class="card-img-overlay">
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">{{$blog->title}}</h4>
+                                    <div>
+                                        {!! strip_tags(Str::limit($blog->description, 50)) !!}
+                                    </div>
+                                    
+                                    <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-info mt-3 cursor-pointer">Read</a>
+                                </div>
+                                <div
+                                    class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
+                                    <div class="views">{{$blog->formatDate()}}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                        @if($loop->iteration % 3 == 0)
+                    </div>
+                    <div class="row">
+                        @endif
+                        @endforeach
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script type="text/javascript">
+    function deleteRow(rowId) {
+        // Display the SweetAlert confirmation
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // If the user confirms the delete, redirect to the delete route
+                window.location.href = '/delete/' + rowId;
+            }
+        })
+    }
+
+</script>

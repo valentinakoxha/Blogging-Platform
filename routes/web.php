@@ -19,6 +19,10 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//To be in scope of all authentications rules
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::resource('blog', BlogController::class);
+
+Route::get('posts', [BlogController::class, 'posts']);
+
