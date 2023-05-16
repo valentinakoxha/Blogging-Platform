@@ -15,9 +15,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        //add pagination 
         $blogs = Blog::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10);
-
         return view('blogs.index', [
             'blogs' => $blogs
         ]);
@@ -30,8 +28,7 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-        //validation
-        request()->validate([
+        $request->validate([
             'title'=>'required',
             'description' => 'required',
             'blogFile' => 'required',

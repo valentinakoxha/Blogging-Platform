@@ -16,9 +16,9 @@
 
     <div class="col-lg-12">
         <div class="card p-5">
-            <div class="card-body">
-                <div class="card mb-3">
-                    <img src="{{$blog->getImage()}}" class="card-img-top" alt="...">
+            <div class="card-body d-flex justify-content-center">
+                <div class="card mb-3 col-6">
+                    <img src="{{$blog->getImage()}}" class="card-img-top blog-img" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{$blog->title}}</h5>
                         {!! strip_tags($blog->description) !!}

@@ -12,11 +12,15 @@ class Blog extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'description',
+        'user_id'
+    ];
 
     public function user()
 	{
-		return $this->belongsTo(Event::class);
+		return $this->belongsTo(User::class);
   	}
 
     public function getImage()

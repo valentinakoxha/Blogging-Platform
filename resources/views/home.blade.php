@@ -6,33 +6,29 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h4 class="align-self-center mb-0">blogs</h4>
-                    <span class="float-right ">
-                        <a href="{{ route('blog.create') }}" class="btn btn-outline-primary"><i
-                                data-feather='plus-circle' class="me-1"></i>
-                            Create blog</a>
-                    </span>
+                    <h4 class="align-self-center mb-0">Blogs</h4>
                 </div>
                 <p class="card-title-desc mt-2">List of blogs in the application</p>
                 <div class="container">
+                    @if(count($blogs) == 0)
+                        There are no blogs posted.
+                    @endif
                     <div class="row">
                         @foreach($blogs as $blog)
                         <div class="col-sm-4 mb-4">
                             <div class="card">
-                                <img class="card-img" src="{{ $blog->getImage() }}" alt="Bologna">
-                                <div class="card-img-overlay">
-                                </div>
+                                <img class="card-img blog-img" src="{{ $blog->getImage() }}" alt="Bologna">
                                 <div class="card-body">
                                     <h4 class="card-title">{{$blog->title}}</h4>
                                     <div>
-                                        {!! strip_tags(Str::limit($blog->description, 50)) !!}
+                                        {!! strip_tags(Str::limit($blog->description, 150)) !!}
                                     </div>
                                     
-                                    <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-info mt-3 cursor-pointer">Read</a>
+                                    <a href="{{ route('blog.show', $blog->id) }}" class="btn btn-info mt-3 cursor-pointer text-white">Read</a>
                                 </div>
                                 <div
                                     class="card-footer text-muted d-flex justify-content-between bg-transparent border-top-0">
-                                    <div class="views">{{$blog->formatDate()}}
+                                    <div class="views">Created at: {{$blog->formatDate()}}
                                     </div>
                                 </div>
                             </div>

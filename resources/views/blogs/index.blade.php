@@ -8,18 +8,34 @@
                 <div class="d-flex justify-content-between">
                     <h4 class="align-self-center mb-0">blogs</h4>
                     <span class="float-right">
-                        <a href="{{ route('blog.create') }}" class="btn btn-outline-success">
-                        
-                        <svg width="18" height="18" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#11c304" stroke="#11c304">
+                        <a href="{{ route('blog.create') }}" class="btn btn-success">
 
-                            <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                            <svg width="18" height="18" viewBox="0 -0.5 21 21" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                fill="#000000">
 
-                            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                                <g id="SVGRepo_bgCarrier" stroke-width="0" />
 
-                            <g id="SVGRepo_iconCarrier"> <title>plus [#1512]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-379.000000, -240.000000)" fill="#38770d"> <g id="icons" transform="translate(56.000000, 160.000000)"> <polygon id="plus-[#1512]" points="344 89 344 91 334.55 91 334.55 100 332.45 100 332.45 91 323 91 323 89 332.45 89 332.45 80 334.55 80 334.55 89"> </polygon> </g> </g> </g> </g>
+                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" />
 
-                        </svg>
-                        Create blog
+                                <g id="SVGRepo_iconCarrier">
+                                    <title>plus [#1512]</title>
+                                    <desc>Created with Sketch.</desc>
+                                    <defs> </defs>
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                        <g id="Dribbble-Light-Preview" transform="translate(-379.000000, -240.000000)"
+                                            fill="#ffffff">
+                                            <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                <polygon id="plus-[#1512]"
+                                                    points="344 89 344 91 334.55 91 334.55 100 332.45 100 332.45 91 323 91 323 89 332.45 89 332.45 80 334.55 80 334.55 89">
+                                                </polygon>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+
+                            </svg>
+                            Create blog
                         </a>
                     </span>
                 </div>
@@ -108,6 +124,9 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="d-flex">
+                {!! $blogs->links() !!}
+            </div>
             </div>
         </div>
     </div>
